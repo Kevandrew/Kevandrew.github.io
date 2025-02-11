@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import {
   Inbox,
@@ -27,7 +27,7 @@ import {
   Flame,
   MailCheck, // Newly imported for editing tasks
 } from "lucide-react";
-
+import Script from "next/script";
 
 // ─── INTERFACES ──────────────────────────────────────────────
 
@@ -89,8 +89,6 @@ interface TasksPreviewProps {
   isExpanded: boolean;
 }
 
-
-
 // ─── NEW: TaskItem and EditableTasks COMPONENTS ──────────────────────────────
 
 interface TaskItemProps {
@@ -100,7 +98,12 @@ interface TaskItemProps {
   onExport: () => void;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onUpdate, onDelete, onExport }) => {
+const TaskItem: React.FC<TaskItemProps> = ({
+  task,
+  onUpdate,
+  onDelete,
+  onExport,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(task);
 
@@ -130,14 +133,23 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onUpdate, onDelete, onExport 
             Save
           </button>
         ) : (
-          <button onClick={() => setIsEditing(true)} className="text-xs text-blue-600 hover:text-blue-700">
+          <button
+            onClick={() => setIsEditing(true)}
+            className="text-xs text-blue-600 hover:text-blue-700"
+          >
             <Edit2 className="w-4 h-4" />
           </button>
         )}
-        <button onClick={onDelete} className="text-xs text-red-600 hover:text-red-700">
+        <button
+          onClick={onDelete}
+          className="text-xs text-red-600 hover:text-red-700"
+        >
           <Trash2 className="w-4 h-4" />
         </button>
-        <button onClick={onExport} className="text-xs text-blue-600 hover:text-blue-700">
+        <button
+          onClick={onExport}
+          className="text-xs text-blue-600 hover:text-blue-700"
+        >
           <Share2 className="w-4 h-4" />
         </button>
       </div>
@@ -195,7 +207,10 @@ const EditableTasks: React.FC<EditableTasksProps> = ({ initialTasks }) => {
           placeholder="Add new task..."
           className="flex-1 text-sm border rounded px-2 py-1"
         />
-        <button onClick={handleAddTask} className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700">
+        <button
+          onClick={handleAddTask}
+          className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700"
+        >
           <Plus className="w-4 h-4" />
           <span>Add</span>
         </button>
@@ -206,10 +221,8 @@ const EditableTasks: React.FC<EditableTasksProps> = ({ initialTasks }) => {
 
 // ─── EXISTING COMPONENTS ──────────────────────────────────────────────
 
-
-
 // Urgency badge (used in both email preview and detail views)
-export const UrgencyLevel: React.FC<{ level: number }> = ({ level }) => {
+const UrgencyLevel: React.FC<{ level: number }> = ({ level }) => {
   const getUrgencyColor = (level: number) => {
     const colors: { [key: number]: string } = {
       5: "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400",
@@ -243,8 +256,6 @@ const TasksPreview: React.FC<TasksPreviewProps> = ({ tasks, isExpanded }) => (
     ))}
   </div>
 );
-
-
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
   icon: Icon,
@@ -299,7 +310,9 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({
           <span className={`text-sm ${isUnread ? "font-medium" : ""}`}>
             {sender}
           </span>
-          <span className="text-xs text-black/40 dark:text-white/40">{time}</span>
+          <span className="text-xs text-black/40 dark:text-white/40">
+            {time}
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <Star className="w-4 h-4 text-black/20 dark:text-white/20 hover:text-yellow-400 transition-colors duration-200" />
@@ -326,16 +339,19 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({
       </div>
 
       {/* Expanded Tasks View (non-editable) */}
-      <TasksPreview tasks={aiOutput["Tasks Extracted"]} isExpanded={showTasks} />
+      <TasksPreview
+        tasks={aiOutput["Tasks Extracted"]}
+        isExpanded={showTasks}
+      />
     </div>
   </div>
 );
 
 // The detail view for a single email (non-threaded)
-const EmailDetail: React.FC<{ email: EmailPreviewProps; onBack: () => void }> = ({
-  email,
-  onBack,
-}) => {
+const EmailDetail: React.FC<{
+  email: EmailPreviewProps;
+  onBack: () => void;
+}> = ({ email, onBack }) => {
   // Create a local copy of tasks from the AI output for editing
   return (
     <div className="flex flex-col h-full">
@@ -428,7 +444,10 @@ const EmailDetail: React.FC<{ email: EmailPreviewProps; onBack: () => void }> = 
 };
 
 // The threaded email detail view.
-const EmailDetailThreaded: React.FC<EmailDetailThreadedProps> = ({ thread, onBack }) => {
+const EmailDetailThreaded: React.FC<EmailDetailThreadedProps> = ({
+  thread,
+  onBack,
+}) => {
   // Maintain state to track which message’s tasks are expanded.
   const [expandedMessageIds, setExpandedMessageIds] = useState<string[]>([]);
 
@@ -439,8 +458,8 @@ const EmailDetailThreaded: React.FC<EmailDetailThreadedProps> = ({ thread, onBac
   };
 
   return (
-<div className="flex flex-col h-full overflow-hidden bg-slate-50 dark:bg-slate-950">
-          {/* Header */}
+    <div className="flex flex-col h-full overflow-hidden bg-slate-50 dark:bg-slate-950">
+      {/* Header */}
       <div className="px-4 py-3 bg-white dark:bg-black border-b border-black/5 dark:border-white/5">
         <div className="flex items-center justify-between mb-3">
           <button
@@ -478,9 +497,15 @@ const EmailDetailThreaded: React.FC<EmailDetailThreadedProps> = ({ thread, onBac
         {thread.messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${message.isOutbound ? "justify-end" : "justify-start"}`}
+            className={`flex ${
+              message.isOutbound ? "justify-end" : "justify-start"
+            }`}
           >
-            <div className={`max-w-[85%] ${message.isOutbound ? "order-2" : "order-1"}`}>
+            <div
+              className={`max-w-[85%] ${
+                message.isOutbound ? "order-2" : "order-1"
+              }`}
+            >
               {/* Message Header */}
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-3">
@@ -532,7 +557,9 @@ const EmailDetailThreaded: React.FC<EmailDetailThreadedProps> = ({ thread, onBac
                 message.aiOutput &&
                 expandedMessageIds.includes(message.id) && (
                   <div className="mt-2">
-                    <EditableTasks initialTasks={message.aiOutput["Tasks Extracted"]} />
+                    <EditableTasks
+                      initialTasks={message.aiOutput["Tasks Extracted"]}
+                    />
                   </div>
                 )}
             </div>
@@ -584,8 +611,9 @@ const HeroScreen: React.FC = () => {
   // State for the currently selected folder and email.
   const [selectedFolder, setSelectedFolder] = useState("Inbox");
   // The selected email can be either a simple email (EmailPreviewProps) or include a thread.
-  const [selectedEmail, setSelectedEmail] =
-    useState<EmailPreviewProps | null>(null);
+  const [selectedEmail, setSelectedEmail] = useState<EmailPreviewProps | null>(
+    null
+  );
 
   // Sample emails (with one email containing a thread)
   const sampleEmails: EmailPreviewProps[] = [
@@ -669,7 +697,10 @@ const HeroScreen: React.FC = () => {
       isUnread: true,
       aiOutput: {
         "Urgency Level": 3,
-        "Tasks Extracted": ["Review Q2 roadmap document", "Provide feedback on timeline"],
+        "Tasks Extracted": [
+          "Review Q2 roadmap document",
+          "Provide feedback on timeline",
+        ],
       },
       folder: "Inbox",
     },
@@ -680,14 +711,19 @@ const HeroScreen: React.FC = () => {
       time: "Yesterday",
       aiOutput: {
         "Urgency Level": 2,
-        "Tasks Extracted": ["Review new icon designs", "Approve final selections"],
+        "Tasks Extracted": [
+          "Review new icon designs",
+          "Approve final selections",
+        ],
       },
       folder: "Starred",
     },
   ];
 
   // Filter emails based on the selected folder.
-  const filteredEmails = sampleEmails.filter((email) => email.folder === selectedFolder);
+  const filteredEmails = sampleEmails.filter(
+    (email) => email.folder === selectedFolder
+  );
 
   // Helper to change folders and close any open email.
   const handleFolderClick = (folder: string) => {
@@ -696,185 +732,210 @@ const HeroScreen: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col overflow-hidden">
-      {/* Title Bar */}
-      <div
-        className="h-[35px] flex-shrink-0"
-        style={{ WebkitAppRegion: "drag" } as React.CSSProperties}
+    <>
+          <Script
+        src="https://app.youform.com/widgets/widget.js"
+        strategy="beforeInteractive" // other options: "beforeInteractive", "lazyOnload"
       />
-            {/* Main Content */}
-            <div className="flex flex-col-reverse md:flex-row flex-1">
-            {/* Left Column - Marketing Content */}
-        <div className="w-[35%] p-8 flex flex-col justify-between border-r border-black/5 dark:border-white/5">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-sm text-blue-700 dark:text-blue-300">
-              <Brain className="w-4 h-4" />
-              <span>AI-Powered Email Intelligence</span>
+      {" "}
+      <div className="w-full min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col overflow-hidden">
+        {/* Title Bar */}
+        <div
+          className="h-[35px] flex-shrink-0"
+          style={{ WebkitAppRegion: "drag" } as React.CSSProperties}
+        />
+        {/* Main Content */}
+        <div className="flex flex-col-reverse md:flex-row flex-1">
+          {/* Left Column - Marketing Content */}
+          <div className="w-[35%] p-8 flex flex-col justify-between border-r border-black/5 dark:border-white/5">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-sm text-blue-700 dark:text-blue-300">
+                <Brain className="w-4 h-4" />
+                <span>AI-Powered Email Intelligence</span>
+              </div>
+              <div>
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+                  Transform Your Inbox into Actionable Tasks
+                </h1>
+                <p className="text-base md:text-lg text-black/70 dark:text-white/70">
+                  AI that automatically analyzes your emails, extracts critical
+                  tasks, prioritizes urgency, and helps you focus on what
+                  matters most.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <ClipboardList className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <span>
+                    Automatically extract actionable items from emails
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Flame className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+                  <span>Intelligent urgency analysis for your emails</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Lock className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                  <span>
+                    100% private—all processing happens on your device
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  <span>
+                    One-click export to Todoist, Asana, and other task managers
+                  </span>
+                </div>
+              </div>
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
-                Transform Your Inbox into Actionable Tasks
-              </h1>
-              <p className="text-base md:text-lg text-black/70 dark:text-white/70">
-                AI that automatically analyzes your emails, extracts critical
-                tasks, prioritizes urgency, and helps you focus on what matters
-                most.
+            <a
+  href="https://app.youform.com/forms/thxq4irm"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center justify-center gap-3 px-6 py-3 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
+>
+  <MailCheck className="w-5 h-5" />
+  <span>Register for Beta</span>
+</a>
+              <p className="mt-3 text-xs text-black/40 dark:text-white/40">
+                No credit card required. Limited beta slots available.
               </p>
             </div>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <ClipboardList className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                <span>Automatically extract actionable items from emails</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Flame className="w-5 h-5 text-rose-600 dark:text-rose-400" />
-                <span>Intelligent urgency analysis for your emails</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Lock className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                <span>
-                  100% private—all processing happens on your device
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
-                <span>
-                  One-click export to Todoist, Asana, and other task managers
-                </span>
-              </div>
-            </div>
           </div>
-          <div>
-            <a
-              href="#"
-              data-youform-open="thxq4irm"
-              data-youform-position="center"
-              className="inline-flex items-center justify-center gap-3 px-6 py-3 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
-            >
-              <MailCheck className="w-5 h-5" />
-              <span>Register for Beta</span>
-            </a>
-            <p className="mt-3 text-xs text-black/40 dark:text-white/40">
-              No credit card required. Limited beta slots available.
-            </p>
-          </div>
-        </div>
 
-        {/* Right Column - App Preview */}
-        <div className="flex-1 p-8">
-          <div className="h-full rounded-xl border border-black/5 dark:border-white/10 bg-white dark:bg-black/40 overflow-hidden flex">
-            {/* Sidebar */}
-            <div className="w-64 border-r border-black/5 dark:border-white/5 flex flex-col">
-              {/* Account Info */}
-              <div className="p-4 border-b border-black/5 dark:border-white/5">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                    <span className="text-sm text-purple-600 dark:text-purple-400 font-medium">J</span>
+          {/* Right Column - App Preview */}
+          <div className="flex-1 p-8">
+            <div className="h-full rounded-xl border border-black/5 dark:border-white/10 bg-white dark:bg-black/40 overflow-hidden flex">
+              {/* Sidebar */}
+              <div className="w-64 border-r border-black/5 dark:border-white/5 flex flex-col">
+                {/* Account Info */}
+                <div className="p-4 border-b border-black/5 dark:border-white/5">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                      <span className="text-sm text-purple-600 dark:text-purple-400 font-medium">
+                        J
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium truncate">
+                        John Doe
+                      </div>
+                      <div className="text-xs text-black/40 dark:text-white/40 truncate">
+                        john.doe@gmail.com
+                      </div>
+                    </div>
+                    <ChevronDown className="w-4 h-4 text-black/40 dark:text-white/40" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium truncate">John Doe</div>
-                    <div className="text-xs text-black/40 dark:text-white/40 truncate">john.doe@gmail.com</div>
+                  <div className="relative">
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-black/40 dark:text-white/40" />
+                    <input
+                      type="text"
+                      placeholder="Search emails"
+                      className="w-full pl-10 pr-4 py-2 text-sm bg-black/[0.02] dark:bg-white/[0.02] rounded-lg placeholder:text-black/40 dark:placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    />
                   </div>
-                  <ChevronDown className="w-4 h-4 text-black/40 dark:text-white/40" />
                 </div>
-                <div className="relative">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-black/40 dark:text-white/40" />
-                  <input
-                    type="text"
-                    placeholder="Search emails"
-                    className="w-full pl-10 pr-4 py-2 text-sm bg-black/[0.02] dark:bg-white/[0.02] rounded-lg placeholder:text-black/40 dark:placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+
+                {/* Navigation */}
+                <div className="flex-1 p-3 space-y-1 overflow-y-auto">
+                  <SidebarItem
+                    icon={Inbox}
+                    label="Inbox"
+                    count="23"
+                    isActive={selectedFolder === "Inbox"}
+                    onClick={() => handleFolderClick("Inbox")}
+                  />
+                  <SidebarItem
+                    icon={Star}
+                    label="Starred"
+                    isActive={selectedFolder === "Starred"}
+                    onClick={() => handleFolderClick("Starred")}
+                  />
+                  <SidebarItem
+                    icon={Clock}
+                    label="Snoozed"
+                    isActive={selectedFolder === "Snoozed"}
+                    onClick={() => handleFolderClick("Snoozed")}
+                  />
+                  <SidebarItem
+                    icon={Archive}
+                    label="Archive"
+                    isActive={selectedFolder === "Archive"}
+                    onClick={() => handleFolderClick("Archive")}
+                  />
+
+                  <div className="my-4 px-3">
+                    <div className="h-px bg-black/5 dark:bg-white/5" />
+                  </div>
+
+                  <div className="flex items-center justify-between px-3 py-2 text-sm text-black/40 dark:text-white/40">
+                    <span>Labels</span>
+                    <span className="text-xs">Edit</span>
+                  </div>
+
+                  <SidebarItem
+                    icon={Tag}
+                    label="Important"
+                    onClick={() => handleFolderClick("Important")}
+                    isActive={selectedFolder === "Important"}
+                  />
+                  <SidebarItem
+                    icon={Tag}
+                    label="Work"
+                    onClick={() => handleFolderClick("Work")}
+                    isActive={selectedFolder === "Work"}
+                  />
+                  <SidebarItem
+                    icon={Tag}
+                    label="Personal"
+                    onClick={() => handleFolderClick("Personal")}
+                    isActive={selectedFolder === "Personal"}
                   />
                 </div>
-              </div>
 
-              {/* Navigation */}
-              <div className="flex-1 p-3 space-y-1 overflow-y-auto">
-                <SidebarItem
-                  icon={Inbox}
-                  label="Inbox"
-                  count="23"
-                  isActive={selectedFolder === "Inbox"}
-                  onClick={() => handleFolderClick("Inbox")}
-                />
-                <SidebarItem
-                  icon={Star}
-                  label="Starred"
-                  isActive={selectedFolder === "Starred"}
-                  onClick={() => handleFolderClick("Starred")}
-                />
-                <SidebarItem
-                  icon={Clock}
-                  label="Snoozed"
-                  isActive={selectedFolder === "Snoozed"}
-                  onClick={() => handleFolderClick("Snoozed")}
-                />
-                <SidebarItem
-                  icon={Archive}
-                  label="Archive"
-                  isActive={selectedFolder === "Archive"}
-                  onClick={() => handleFolderClick("Archive")}
-                />
-
-                <div className="my-4 px-3">
-                  <div className="h-px bg-black/5 dark:bg-white/5" />
+                {/* Settings */}
+                <div className="p-3 border-t border-black/5 dark:border-white/5">
+                  <SidebarItem icon={Settings} label="Settings" />
                 </div>
-
-                <div className="flex items-center justify-between px-3 py-2 text-sm text-black/40 dark:text-white/40">
-                  <span>Labels</span>
-                  <span className="text-xs">Edit</span>
-                </div>
-
-                <SidebarItem
-                  icon={Tag}
-                  label="Important"
-                  onClick={() => handleFolderClick("Important")}
-                  isActive={selectedFolder === "Important"}
-                />
-                <SidebarItem
-                  icon={Tag}
-                  label="Work"
-                  onClick={() => handleFolderClick("Work")}
-                  isActive={selectedFolder === "Work"}
-                />
-                <SidebarItem
-                  icon={Tag}
-                  label="Personal"
-                  onClick={() => handleFolderClick("Personal")}
-                  isActive={selectedFolder === "Personal"}
-                />
               </div>
 
-              {/* Settings */}
-              <div className="p-3 border-t border-black/5 dark:border-white/5">
-                <SidebarItem icon={Settings} label="Settings" />
-              </div>
-            </div>
-
-            
-
-            {/* Email List or Detail View */}
-            <div className="flex-1 overflow-y-auto">
+              {/* Email List or Detail View */}
+              <div className="flex-1 overflow-y-auto">
                 <div className="p-4 border-b border-black/5 dark:border-white/5">
-            <h2 className="text-lg font-semibold">Responsive Preview (Click on the emails)</h2>
-          </div>
-              {selectedEmail ? (
-                // If the selected email has a thread, show the threaded detail view.
-                selectedEmail.thread ? (
-                  <EmailDetailThreaded thread={selectedEmail.thread} onBack={() => setSelectedEmail(null)} />
+                  <h2 className="text-lg font-semibold">
+                    Responsive Preview (Click on the emails)
+                  </h2>
+                </div>
+                {selectedEmail ? (
+                  // If the selected email has a thread, show the threaded detail view.
+                  selectedEmail.thread ? (
+                    <EmailDetailThreaded
+                      thread={selectedEmail.thread}
+                      onBack={() => setSelectedEmail(null)}
+                    />
+                  ) : (
+                    <EmailDetail
+                      email={selectedEmail}
+                      onBack={() => setSelectedEmail(null)}
+                    />
+                  )
                 ) : (
-                  <EmailDetail email={selectedEmail} onBack={() => setSelectedEmail(null)} />
-                )
-              ) : (
-                // Otherwise, show the list of emails for the selected folder.
-                filteredEmails.map((email, index) => (
-                  <EmailPreview key={index} {...email} onClick={() => setSelectedEmail(email)} />
-                ))
-              )}
+                  // Otherwise, show the list of emails for the selected folder.
+                  filteredEmails.map((email, index) => (
+                    <EmailPreview
+                      key={index}
+                      {...email}
+                      onClick={() => setSelectedEmail(email)}
+                    />
+                  ))
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
