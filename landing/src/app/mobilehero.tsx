@@ -138,7 +138,7 @@ const MobileHeroScreen: React.FC = () => {
               <div className="flex items-start gap-3">
                 <AtSign className="w-5 h-5 text-green-600 dark:text-green-400" />
                 <p className="text-gray-700 dark:text-gray-300">
-                  Ithena plugs into your existing Gmail account(s). No complicated setup required.
+                No complicated setup required.
                 </p>
               </div>
             </div>

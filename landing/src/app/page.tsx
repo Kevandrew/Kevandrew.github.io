@@ -100,7 +100,7 @@ const HeroScreen: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <AtSign className="w-5 h-5 text-green-600 dark:text-green-400" />
                   <span>
-No                    complicated setup required.
+No complicated setup required.
                   </span>
                 </div>
               </div>
