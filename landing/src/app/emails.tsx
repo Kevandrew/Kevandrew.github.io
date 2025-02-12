@@ -27,7 +27,7 @@ export const EmailPreview: React.FC<EmailPreviewProps> = ({
   onClick,
   thread,
 }) => {
-  // If a thread exists, combine tasks from all messages; otherwise, use the email's tasks.
+  // Combine tasks from the thread (if present) or use the email's tasks.
   const tasksCombined = thread
     ? thread.messages.flatMap((message) =>
         message.aiOutput && message.aiOutput["Tasks Extracted"]
@@ -37,6 +37,19 @@ export const EmailPreview: React.FC<EmailPreviewProps> = ({
     : aiOutput["Tasks Extracted"];
 
   const totalTasks = tasksCombined.length;
+
+  // Determine email count and correspondent count if it's a thread.
+  const emailCount = thread ? thread.messages.length : 1;
+  let correspondentCount = 0;
+  if (thread) {
+    // Gather unique senders from the thread.
+    const uniqueSenders = new Set<string>(
+      thread.messages.map((msg) => msg.sender)
+    );
+    // Optionally exclude "You" (the viewer) from the correspondents.
+    uniqueSenders.delete("You");
+    correspondentCount = uniqueSenders.size;
+  }
 
   return (
     <div
@@ -66,9 +79,18 @@ export const EmailPreview: React.FC<EmailPreviewProps> = ({
         <h4 className={`text-sm mb-2 truncate ${isUnread ? "font-medium" : ""}`}>
           {subject}
         </h4>
-        <p className="text-xs text-black/60 dark:text-white/60 line-clamp-1 mb-3">
+        <p className="text-xs text-black/60 dark:text-white/60 line-clamp-1 mb-2">
           {preview}
         </p>
+
+        {/* Additional info for threaded emails */}
+        {thread && (
+          <div className="text-xs text-black/40 dark:text-white/40 mb-2">
+            {emailCount} {emailCount === 1 ? "email" : "emails"} ·{" "}
+            {correspondentCount}{" "}
+            {correspondentCount === 1 ? "correspondent" : "correspondents"}
+          </div>
+        )}
 
         {/* AI Analysis Section */}
         <div className="flex items-center gap-3">
@@ -76,17 +98,12 @@ export const EmailPreview: React.FC<EmailPreviewProps> = ({
           <div className="flex items-center gap-1.5 text-xs text-black/40 dark:text-white/40">
             <CheckSquare className="w-3 h-3" />
             <span>{totalTasks} tasks</span>
-            {totalTasks > 0 && (
-              <ChevronRight className="w-3 h-3" />
-            )}
+            {totalTasks > 0 && <ChevronRight className="w-3 h-3" />}
           </div>
         </div>
 
         {/* Expanded Tasks View (non-editable) */}
-        <TasksPreview
-          tasks={tasksCombined}
-          isExpanded={showTasks}
-        />
+        <TasksPreview tasks={tasksCombined} isExpanded={showTasks} />
       </div>
     </div>
   );
