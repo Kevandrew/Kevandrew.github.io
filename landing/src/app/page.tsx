@@ -25,78 +25,18 @@ import {
   CheckCircle,
   ClipboardList,
   Flame,
-  MailCheck, // Newly imported for editing tasks
+  MailCheck,
+  AtSign,
+  Info, // Newly imported for editing tasks
 } from "lucide-react";
 import Script from "next/script";
-
-// ─── INTERFACES ──────────────────────────────────────────────
-
-export interface EmailAiOutput {
-  "Urgency Level": number;
-  "Tasks Extracted": string[];
-}
-
-export interface ThreadMessage {
-  id: string;
-  sender: string;
-  senderEmail: string;
-  recipients: string[];
-  timestamp: string;
-  content: string;
-  isOutbound?: boolean;
-  // Each message can have its own AI analysis.
-  aiOutput?: EmailAiOutput;
-}
-
-export interface EmailThread {
-  id: string;
-  subject: string;
-  // You can still include a thread-level aiOutput if desired.
-  aiOutput: EmailAiOutput;
-  messages: ThreadMessage[];
-}
-
-export interface EmailDetailThreadedProps {
-  thread: EmailThread;
-  onBack: () => void;
-}
-
-// Extend the email preview interface with an optional thread.
-export interface EmailPreviewProps {
-  sender: string;
-  subject: string;
-  preview: string;
-  time: string;
-  isUnread?: boolean;
-  aiOutput: EmailAiOutput;
-  showTasks?: boolean;
-  folder: string;
-  onClick?: () => void;
-  // If present, the email has a thread of messages.
-  thread?: EmailThread;
-}
-
-interface SidebarItemProps {
-  icon: React.ElementType;
-  label: string;
-  count?: number | string;
-  isActive?: boolean;
-  onClick?: () => void;
-}
-
-interface TasksPreviewProps {
-  tasks: string[];
-  isExpanded: boolean;
-}
-
-// ─── NEW: TaskItem and EditableTasks COMPONENTS ──────────────────────────────
-
-interface TaskItemProps {
-  task: string;
-  onUpdate: (newTask: string) => void;
-  onDelete: () => void;
-  onExport: () => void;
-}
+import {
+  TaskItemProps,
+  EmailDetailThreadedProps,
+  EmailPreviewProps,
+  SidebarItemProps,
+  TasksPreviewProps,
+} from "./types";
 
 const TaskItem: React.FC<TaskItemProps> = ({
   task,
@@ -218,8 +158,6 @@ const EditableTasks: React.FC<EditableTasksProps> = ({ initialTasks }) => {
     </div>
   );
 };
-
-// ─── EXISTING COMPONENTS ──────────────────────────────────────────────
 
 // Urgency badge (used in both email preview and detail views)
 const UrgencyLevel: React.FC<{ level: number }> = ({ level }) => {
@@ -733,11 +671,10 @@ const HeroScreen: React.FC = () => {
 
   return (
     <>
-          <Script
+      <Script
         src="https://app.youform.com/widgets/widget.js"
         strategy="beforeInteractive" // other options: "beforeInteractive", "lazyOnload"
-      />
-      {" "}
+      />{" "}
       <div className="w-full min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col overflow-hidden">
         {/* Title Bar */}
         <div
@@ -758,21 +695,24 @@ const HeroScreen: React.FC = () => {
                   Transform Your Inbox into Actionable Tasks
                 </h1>
                 <p className="text-base md:text-lg text-black/70 dark:text-white/70">
-                  AI that automatically analyzes your emails, extracts critical
-                  tasks, prioritizes urgency, and helps you focus on what
-                  matters most.
+                  Ithena’s AI scans your incoming emails, analyzes the urgency,
+                  and extracts tasks for you to export your favorite task
+                  manager.
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <ClipboardList className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   <span>
-                    Automatically extract actionable items from emails
+                    Stop missing hidden tasks buried in email threads—stay
+                    organized effortlessly
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Flame className="w-5 h-5 text-rose-600 dark:text-rose-400" />
-                  <span>Intelligent urgency analysis for your emails</span>
+                  <span>
+                    Know at a glance which tasks truly need your attention first
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Lock className="w-5 h-5 text-purple-600 dark:text-purple-400" />
@@ -786,18 +726,25 @@ const HeroScreen: React.FC = () => {
                     One-click export to Todoist, Asana, and other task managers
                   </span>
                 </div>
+                <div className="flex items-center gap-3">
+                  <AtSign className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  <span>
+                    Ithena plugs into your existing Gmail account(s). No
+                    complicated setup required.
+                  </span>
+                </div>
               </div>
             </div>
             <div>
-            <a
-  href="https://app.youform.com/forms/thxq4irm"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center justify-center gap-3 px-6 py-3 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
->
-  <MailCheck className="w-5 h-5" />
-  <span>Register for Beta</span>
-</a>
+              <a
+                href="https://app.youform.com/forms/thxq4irm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 px-6 py-3 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
+              >
+                <MailCheck className="w-5 h-5" />
+                <span>Register for Beta</span>
+              </a>
               <p className="mt-3 text-xs text-black/40 dark:text-white/40">
                 No credit card required. Limited beta slots available.
               </p>
@@ -806,6 +753,13 @@ const HeroScreen: React.FC = () => {
 
           {/* Right Column - App Preview */}
           <div className="flex-1 p-8">
+            <div className="mb-4 text-sm text-blue-500 dark:text-blue-400 flex items-center gap-2">
+              <Info className="w-4 h-4" />
+              <span>
+                This is an interactive preview. Feel free to click emails and
+                try out the features!
+              </span>
+            </div>
             <div className="h-full rounded-xl border border-black/5 dark:border-white/10 bg-white dark:bg-black/40 overflow-hidden flex">
               {/* Sidebar */}
               <div className="w-64 border-r border-black/5 dark:border-white/5 flex flex-col">
@@ -902,11 +856,7 @@ const HeroScreen: React.FC = () => {
 
               {/* Email List or Detail View */}
               <div className="flex-1 overflow-y-auto">
-                <div className="p-4 border-b border-black/5 dark:border-white/5">
-                  <h2 className="text-lg font-semibold">
-                    Responsive Preview (Click on the emails)
-                  </h2>
-                </div>
+                <div className="p-4 border-b border-black/5 dark:border-white/5"></div>
                 {selectedEmail ? (
                   // If the selected email has a thread, show the threaded detail view.
                   selectedEmail.thread ? (
