@@ -53,76 +53,85 @@ const HeroScreen: React.FC = () => {
         <div className="flex flex-col-reverse md:flex-row flex-1">
           {/* Left Column - Marketing Content */}
           <div className="w-[35%] flex flex-col justify-between p-12 border-r border-black/5 dark:border-white/5">
-        <div className="space-y-10">
-          {/* Header */}
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-sm font-medium text-blue-700 dark:text-blue-300">
-              <Zap className="w-3.5 h-3.5" />
-              <span>Your Inbox, Smarter</span>
-            </div>
-            
-            <h1 className="text-3xl font-semibold tracking-tight text-black dark:text-white">
-              Inbox Zero,
-              <span className="block text-lg mt-2 font-normal text-black/60 dark:text-white/60">
-                without compromising your data
-              </span>
-            </h1>
-          </div>
+            <div className="space-y-10">
+              {/* Header */}
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-sm font-medium text-blue-700 dark:text-blue-300">
+                  <Zap className="w-3.5 h-3.5" />
+                  <span>Your Inbox, Smarter</span>
+                </div>
 
-          {/* Core Features */}
-          <div className="space-y-6">
-            <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-blue-50/50 dark:from-blue-900/20 dark:to-blue-900/10">
-              <div className="font-medium text-black dark:text-white mb-2">Smart AI Prioritization</div>
-              <div className="text-sm text-black/60 dark:text-white/60">
-                Automatically identifies email priority (Level 1-5) so you know exactly what needs attention first.
+                <h1 className="text-3xl font-semibold tracking-tight text-black dark:text-white">
+                  Inbox Zero,
+                  <span className="block text-lg mt-2 font-normal text-black/60 dark:text-white/60">
+                    without compromising your data
+                  </span>
+                </h1>
+              </div>
+
+              {/* Core Features */}
+              <div className="space-y-6">
+                <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-blue-50/50 dark:from-blue-900/20 dark:to-blue-900/10">
+                  <div className="font-medium text-black dark:text-white mb-2">
+                    Smart AI Prioritization
+                  </div>
+                  <div className="text-sm text-black/60 dark:text-white/60">
+                    Automatically identifies email priority (Level 1-5) so you
+                    know exactly what needs attention first.
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-lg bg-gradient-to-br from-purple-50 to-purple-50/50 dark:from-purple-900/20 dark:to-purple-900/10">
+                  <div className="font-medium text-black dark:text-white mb-2">
+                    Automated Task Extraction{" "}
+                  </div>
+                  <div className="text-sm text-black/60 dark:text-white/60">
+                    Transforms lengthy email threads into clear, actionable
+                    tasks you can easily track and complete.
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-lg bg-gradient-to-br from-emerald-50 to-emerald-50/50 dark:from-emerald-900/20 dark:to-emerald-900/10">
+                  <div className="font-medium text-black dark:text-white mb-2">
+                    Your Data, Your Device
+                  </div>
+                  <div className="text-sm text-black/60 dark:text-white/60">
+                    All processing happens locally—get AI-powered insights while
+                    keeping your data private.
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Benefits */}
+              <div className="space-y-3 text-sm">
+                <div className="text-black/60 dark:text-white/60">
+                  ✓ Export tasks to Todoist, Asana & more
+                </div>
+                <div className="text-black/60 dark:text-white/60">
+                  ✓ Setup in minutes, no complex configuration
+                </div>
+                <div className="text-black/60 dark:text-white/60">
+                  ✓ Works with your existing email workflow
+                </div>
               </div>
             </div>
-            
-            <div className="p-4 rounded-lg bg-gradient-to-br from-purple-50 to-purple-50/50 dark:from-purple-900/20 dark:to-purple-900/10">
-              <div className="font-medium text-black dark:text-white mb-2">Automated Task Extraction </div>
-              <div className="text-sm text-black/60 dark:text-white/60">
-                Transforms lengthy email threads into clear, actionable tasks you can easily track and complete.
-              </div>
-            </div>
-            
-            <div className="p-4 rounded-lg bg-gradient-to-br from-emerald-50 to-emerald-50/50 dark:from-emerald-900/20 dark:to-emerald-900/10">
-              <div className="font-medium text-black dark:text-white mb-2">Your Data, Your Device</div>
-              <div className="text-sm text-black/60 dark:text-white/60">
-                All processing happens locally—get AI-powered insights while keeping your data private.
-              </div>
+
+            {/* CTA */}
+            <div>
+              <a
+                href="https://app.youform.com/forms/thxq4irm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
+              >
+                <MailCheck className="w-4 h-4" />
+                <span className="text-sm font-medium">Get Early Access</span>
+              </a>
+              <p className="mt-3 text-xs text-black/40 dark:text-white/40">
+                No credit card required. Limited beta slots available.
+              </p>
             </div>
           </div>
-
-          {/* Quick Benefits */}
-          <div className="space-y-3 text-sm">
-            <div className="text-black/60 dark:text-white/60">
-              ✓ Export tasks to Todoist, Asana & more
-            </div>
-            <div className="text-black/60 dark:text-white/60">
-              ✓ Setup in minutes, no complex configuration
-            </div>
-            <div className="text-black/60 dark:text-white/60">
-              ✓ Works with your existing email workflow
-            </div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div>
-          <a
-            href="https://app.youform.com/forms/thxq4irm"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
-          >
-            <MailCheck className="w-4 h-4" />
-            <span className="text-sm font-medium">Get Early Access</span>
-          </a>
-          <p className="mt-3 text-xs text-black/40 dark:text-white/40">
-            No credit card required. Limited beta slots available.
-          </p>
-        </div>
-      </div>
 
           {/* Right Column - App Preview */}
           <div className="flex-1 p-8">
