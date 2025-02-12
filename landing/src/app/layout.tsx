@@ -36,7 +36,7 @@ export default function RootLayout({
               <Script
           src="https://datafa.st/js/script.js"
           data-website-id="67acc69653c7643ac65edd51"
-          data-domain="ithena.one"
+          data-domain="www.ithena.one"
           strategy="afterInteractive"
         />
     </html>
