@@ -71,7 +71,7 @@ const MobileHeroScreen: React.FC = () => {
               This is an interactive preview. Feel free to click emails and try out the features!
             </span>
           </div>
-          <div className="rounded-xl border border-black/5 dark:border-white/10 bg-white dark:bg-black/40 overflow-hidden flex">
+          <div className="rounded-xl h-[50vh] border border-black/5 dark:border-white/10 bg-white dark:bg-black/40 overflow-hidden flex">
             {/* Collapsed Sidebar */}
             <Sidebar
               selectedFolder="Inbox"

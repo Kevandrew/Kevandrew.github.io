@@ -2,6 +2,75 @@ import { EmailPreviewProps } from "./types";
 
 export const sampleEmails: EmailPreviewProps[] = [
   {
+    sender: "Client Relations",
+    subject: "Client Feedback on Proposal",
+    preview:
+      "Our client has provided detailed feedback on the recent proposal. Please review...",
+    time: "2:00 PM",
+    isUnread: true,
+    aiOutput: {
+      "Urgency Level": 3,
+      "Tasks Extracted": [
+        "Review client feedback",
+        "Schedule call with client",
+      ],
+    },
+    folder: "Inbox",
+    thread: {
+      id: "6",
+      subject: "Client Feedback on Proposal",
+      aiOutput: {
+        "Urgency Level": 3,
+        "Tasks Extracted": [
+          "Review client feedback",
+          "Schedule call with client",
+        ],
+      },
+      messages: [
+        {
+          id: "1",
+          sender: "Client Relations",
+          senderEmail: "clientrelations@company.com",
+          // Include multiple recipients to indicate other parties are in the loop
+          recipients: ["you@company.com", "accountmanager@company.com"],
+          timestamp: "2:00 PM",
+          content:
+            "The client has concerns regarding the timeline and budget. Please see the attached feedback.\n\nSincerely,\nClient Relations Team",
+          aiOutput: {
+            "Urgency Level": 3,
+            "Tasks Extracted": [
+              "Review client feedback",
+              "Schedule call with client",
+            ],
+          },
+        },
+        {
+          id: "2",
+          sender: "You",
+          senderEmail: "you@company.com",
+          recipients: ["clientrelations@company.com", "accountmanager@company.com"],
+          timestamp: "2:30 PM",
+          content:
+            "I'll review the feedback and propose a call to discuss next steps.",
+          isOutbound: true,
+        },
+        {
+          id: "3",
+          sender: "Account Manager",
+          senderEmail: "accountmanager@company.com",
+          recipients: ["you@company.com", "clientrelations@company.com"],
+          timestamp: "3:00 PM",
+          content:
+            "I've scheduled a call with the client for tomorrow at 10 AM to go over the feedback. Let me know if you need any further details.",
+          aiOutput: {
+            "Urgency Level": 3,
+            "Tasks Extracted": ["Attend scheduled call"],
+          },
+        },
+      ],
+    },
+  },
+  {
     sender: "Engineering Team",
     subject: "Build Pipeline Optimization Request",
     preview:
@@ -16,7 +85,6 @@ export const sampleEmails: EmailPreviewProps[] = [
         "Schedule follow-up meeting with engineering team",
       ],
     },
-    showTasks: true,
     folder: "Inbox",
     thread: {
       id: "1",

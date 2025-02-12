@@ -100,8 +100,7 @@ const HeroScreen: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <AtSign className="w-5 h-5 text-green-600 dark:text-green-400" />
                   <span>
-                    Ithena plugs into your existing Gmail account(s). No
-                    complicated setup required.
+No                    complicated setup required.
                   </span>
                 </div>
               </div>
@@ -131,7 +130,7 @@ const HeroScreen: React.FC = () => {
                 try out the features!
               </span>
             </div>
-            <div className="h-200 rounded-xl border border-black/5 dark:border-white/10 bg-white dark:bg-black/40 overflow-hidden flex">
+            <div className="h-[85vh] rounded-xl border border-black/5 dark:border-white/10 bg-white dark:bg-black/40 overflow-hidden flex">
               {/* Sidebar Component */}
               <Sidebar
                 selectedFolder={selectedFolder}
