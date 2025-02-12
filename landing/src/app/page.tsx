@@ -131,7 +131,7 @@ const HeroScreen: React.FC = () => {
                 try out the features!
               </span>
             </div>
-            <div className="h-full rounded-xl border border-black/5 dark:border-white/10 bg-white dark:bg-black/40 overflow-hidden flex">
+            <div className="h-200 rounded-xl border border-black/5 dark:border-white/10 bg-white dark:bg-black/40 overflow-hidden flex">
               {/* Sidebar Component */}
               <Sidebar
                 selectedFolder={selectedFolder}

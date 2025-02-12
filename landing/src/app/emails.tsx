@@ -87,7 +87,7 @@ export const EmailPreview: React.FC<EmailPreviewProps> = ({
   }> = ({ email, onBack }) => {
     // Create a local copy of tasks from the AI output for editing
     return (
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col">
         {/* Header */}
         <div className="p-4 border-b border-black/5 dark:border-white/5">
           <div className="flex items-center justify-between mb-6">
@@ -192,7 +192,7 @@ export const EmailPreview: React.FC<EmailPreviewProps> = ({
     };
   
     return (
-      <div className="flex flex-col h-full overflow-hidden bg-slate-50 dark:bg-slate-950">
+      <div className="flex flex-col overflow-y-auto bg-slate-50 dark:bg-slate-950">
         {/* Header */}
         <div className="px-4 py-3 bg-white dark:bg-black border-b border-black/5 dark:border-white/5">
           <div className="flex items-center justify-between mb-3">
