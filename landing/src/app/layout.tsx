@@ -26,19 +26,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-      </body>
-              {/* Tracking script added in the head */}
-              <Script
+        <Script
           src="https://datafa.st/js/script.js"
           data-website-id="67acc69653c7643ac65edd51"
           data-domain="www.ithena.one"
           strategy="afterInteractive"
         />
+      </body>
     </html>
   );
 }
