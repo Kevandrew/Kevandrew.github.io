@@ -66,3 +66,7 @@ export interface EmailAiOutput {
     onDelete: () => void;
     onExport: () => void;
   }
+
+export interface EditableTasksProps {
+    initialTasks: string[];
+  }
