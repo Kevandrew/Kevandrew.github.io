@@ -1,26 +1,42 @@
-import React, { useState } from 'react';
-import { ChevronDown, Search, Inbox, Star, Clock, Archive, Settings, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
+import {
+  ChevronDown,
+  Search,
+  Inbox,
+  Star,
+  Clock,
+  Archive,
+  Settings,
+  Tag,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 
 interface SidebarProps {
   selectedFolder: string;
   onFolderClick: (folder: string) => void;
+  expanded: boolean;      // New prop: determines if the sidebar is expanded
+  onToggle: () => void;   // Callback to toggle expansion (controlled by parent)
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ selectedFolder, onFolderClick }) => {
-  const [isExpanded, setIsExpanded] = useState(true);
-
+const Sidebar: React.FC<SidebarProps> = ({
+  selectedFolder,
+  onFolderClick,
+  expanded,
+  onToggle,
+}) => {
   return (
-    <div 
+    <div
       className={`${
-        isExpanded ? 'w-64' : 'w-16'
+        expanded ? 'w-64' : 'w-16'
       } border-r border-black/5 dark:border-white/5 flex flex-col transition-all duration-200 ease-in-out relative group`}
     >
       {/* Toggle Button */}
       <button
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={onToggle}
         className="absolute -right-3 top-4 w-6 h-6 bg-black/5 dark:bg-white/5 rounded-full flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
       >
-        {isExpanded ? (
+        {expanded ? (
           <ChevronLeft className="w-4 h-4" />
         ) : (
           <ChevronRight className="w-4 h-4" />
@@ -35,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedFolder, onFolderClick }) => {
               J
             </span>
           </div>
-          {isExpanded && (
+          {expanded && (
             <>
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-medium truncate">John Doe</div>
@@ -47,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedFolder, onFolderClick }) => {
             </>
           )}
         </div>
-        {isExpanded && (
+        {expanded && (
           <div className="relative">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-black/40 dark:text-white/40" />
             <input
@@ -67,35 +83,35 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedFolder, onFolderClick }) => {
           count="23"
           isActive={selectedFolder === "Inbox"}
           onClick={() => onFolderClick("Inbox")}
-          isExpanded={isExpanded}
+          isExpanded={expanded}
         />
         <CollapsibleSidebarItem
           icon={Star}
           label="Starred"
           isActive={selectedFolder === "Starred"}
           onClick={() => onFolderClick("Starred")}
-          isExpanded={isExpanded}
+          isExpanded={expanded}
         />
         <CollapsibleSidebarItem
           icon={Clock}
           label="Snoozed"
           isActive={selectedFolder === "Snoozed"}
           onClick={() => onFolderClick("Snoozed")}
-          isExpanded={isExpanded}
+          isExpanded={expanded}
         />
         <CollapsibleSidebarItem
           icon={Archive}
           label="Archive"
           isActive={selectedFolder === "Archive"}
           onClick={() => onFolderClick("Archive")}
-          isExpanded={isExpanded}
+          isExpanded={expanded}
         />
 
         <div className="my-4 px-3">
           <div className="h-px bg-black/5 dark:bg-white/5" />
         </div>
 
-        {isExpanded && (
+        {expanded && (
           <div className="flex items-center justify-between px-3 py-2 text-sm text-black/40 dark:text-white/40">
             <span>Labels</span>
             <span className="text-xs">Edit</span>
@@ -107,21 +123,21 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedFolder, onFolderClick }) => {
           label="Important"
           onClick={() => onFolderClick("Important")}
           isActive={selectedFolder === "Important"}
-          isExpanded={isExpanded}
+          isExpanded={expanded}
         />
         <CollapsibleSidebarItem
           icon={Tag}
           label="Work"
           onClick={() => onFolderClick("Work")}
           isActive={selectedFolder === "Work"}
-          isExpanded={isExpanded}
+          isExpanded={expanded}
         />
         <CollapsibleSidebarItem
           icon={Tag}
           label="Personal"
           onClick={() => onFolderClick("Personal")}
           isActive={selectedFolder === "Personal"}
-          isExpanded={isExpanded}
+          isExpanded={expanded}
         />
       </div>
 
@@ -131,7 +147,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedFolder, onFolderClick }) => {
           icon={Settings}
           label="Settings"
           onClick={() => onFolderClick("Settings")}
-          isExpanded={isExpanded}
+          isExpanded={expanded}
         />
       </div>
     </div>

@@ -13,12 +13,10 @@ import {
 } from "lucide-react";
 import Script from "next/script";
 import { EmailPreviewProps } from "./types";
-
 import { sampleEmails } from "./sampleEmails";
 import Sidebar from "./sidebar";
 import { EmailDetailThreaded, EmailDetail, EmailPreview } from "./emails";
-
-/* ─── HERO SCREEN COMPONENT ─────────────────────────────────────────────── */
+import MobileHeroScreen from "./mobilehero";
 
 const HeroScreen: React.FC = () => {
   // State for the currently selected folder and email.
@@ -27,8 +25,7 @@ const HeroScreen: React.FC = () => {
   const [selectedEmail, setSelectedEmail] = useState<EmailPreviewProps | null>(
     null
   );
-
-  // Sample emails (with one email containing a thread)
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
   // Filter emails based on the selected folder.
   const filteredEmails = sampleEmails.filter(
@@ -47,7 +44,9 @@ const HeroScreen: React.FC = () => {
         src="https://app.youform.com/widgets/widget.js"
         strategy="beforeInteractive"
       />
-      <div className="w-full min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col overflow-hidden">
+
+      {/* Desktop view: visible on md screens and up */}
+      <div className="hidden md:flex w-full min-h-screen bg-slate-50 dark:bg-slate-950 flex-col overflow-hidden">
         {/* Title Bar */}
         <div
           className="h-[35px] flex-shrink-0"
@@ -137,6 +136,8 @@ const HeroScreen: React.FC = () => {
               <Sidebar
                 selectedFolder={selectedFolder}
                 onFolderClick={handleFolderClick}
+                expanded={sidebarExpanded}
+                onToggle={() => setSidebarExpanded(!sidebarExpanded)}
               />
 
               {/* Email List or Detail View */}
@@ -169,6 +170,11 @@ const HeroScreen: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile view: visible on screens smaller than md */}
+      <div className="flex md:hidden">
+        <MobileHeroScreen />
       </div>
     </>
   );
