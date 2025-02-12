@@ -41,10 +41,11 @@ const HeroScreen: React.FC = () => {
   return (
     <>
       <Script
-        src="https://app.youform.com/widgets/widget.js"
-        strategy="beforeInteractive"
-      />
-
+  defer
+  data-website-id="67acc69653c7643ac65edd51"
+  data-domain="ithena.one"
+  src="https://datafa.st/js/script.js"/>
+      
       {/* Desktop view: visible on md screens and up */}
       <div className="hidden md:flex w-full min-h-screen bg-slate-50 dark:bg-slate-950 flex-col overflow-hidden">
         {/* Title Bar */}
