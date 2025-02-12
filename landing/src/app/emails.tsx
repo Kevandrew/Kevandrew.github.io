@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EmailPreviewProps, EmailDetailThreadedProps } from "./types";
 import { UrgencyLevel, TasksPreview, EditableTasks } from "./utils";
 import {
@@ -216,9 +216,21 @@ export const EmailDetailThreaded: React.FC<EmailDetailThreadedProps> = ({
   // Maintain state to track which message’s tasks are expanded.
   const [expandedMessageIds, setExpandedMessageIds] = useState<string[]>([]);
 
+  // Automatically expand tasks for all inbound messages with AI output.
+  useEffect(() => {
+    if (thread) {
+      const expandedIds = thread.messages
+        .filter((message) => !message.isOutbound && message.aiOutput)
+        .map((message) => message.id);
+      setExpandedMessageIds(expandedIds);
+    }
+  }, [thread]);
+
   const toggleExpansion = (id: string) => {
     setExpandedMessageIds((prev) =>
-      prev.includes(id) ? prev.filter((msgId) => msgId !== id) : [...prev, id]
+      prev.includes(id)
+        ? prev.filter((msgId) => msgId !== id)
+        : [...prev, id]
     );
   };
 
@@ -321,7 +333,7 @@ export const EmailDetailThreaded: React.FC<EmailDetailThreadedProps> = ({
                 <p className="text-sm whitespace-pre-wrap">{message.content}</p>
               </div>
 
-              {/* Collapsible Editable Tasks for this message */}
+              {/* Editable Tasks for this message (auto-expanded) */}
               {!message.isOutbound &&
                 message.aiOutput &&
                 expandedMessageIds.includes(message.id) && (
