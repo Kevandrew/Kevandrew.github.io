@@ -52,87 +52,86 @@ const HeroScreen: React.FC = () => {
         {/* Main Content */}
         <div className="flex flex-col-reverse md:flex-row flex-1">
           {/* Left Column - Marketing Content */}
+          {/* Left Column - Marketing Content */}
           <div className="w-[35%] flex flex-col justify-between p-12 border-r border-black/5 dark:border-white/5">
-            <div className="space-y-10">
-              {/* Header */}
+            <div className="space-y-12">
+              {/* Header Section */}
               <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-sm font-medium text-blue-700 dark:text-blue-300">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 text-sm font-medium text-blue-700 dark:text-blue-300">
                   <Zap className="w-3.5 h-3.5" />
-                  <span>Your Inbox, Smarter</span>
+                  <span>Powered by AI, Protected by Design</span>
                 </div>
 
-                <h1 className="text-3xl font-semibold tracking-tight text-black dark:text-white">
-                  Inbox Zero,
-                  <span className="block text-lg mt-2 font-normal text-black/60 dark:text-white/60">
-                    without compromising your data
-                  </span>
-                </h1>
-              </div>
-
-              {/* Core Features */}
-              <div className="space-y-6">
-                <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-blue-50/50 dark:from-blue-900/20 dark:to-blue-900/10">
-                  <div className="font-medium text-black dark:text-white mb-2">
-                    Smart AI Prioritization
-                  </div>
-                  <div className="text-sm text-black/60 dark:text-white/60">
-                    Automatically identifies email priority (Level 1-5) so you
-                    know exactly what needs attention first.
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-lg bg-gradient-to-br from-purple-50 to-purple-50/50 dark:from-purple-900/20 dark:to-purple-900/10">
-                  <div className="font-medium text-black dark:text-white mb-2">
-                    Automated Task Extraction{" "}
-                  </div>
-                  <div className="text-sm text-black/60 dark:text-white/60">
-                    Transforms lengthy email threads into clear, actionable
-                    tasks you can easily track and complete.
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-lg bg-gradient-to-br from-emerald-50 to-emerald-50/50 dark:from-emerald-900/20 dark:to-emerald-900/10">
-                  <div className="font-medium text-black dark:text-white mb-2">
-                    Your Data, Your Device
-                  </div>
-                  <div className="text-sm text-black/60 dark:text-white/60">
-                    All processing happens locally—get AI-powered insights while
-                    keeping your data private.
-                  </div>
+                <div className="space-y-2">
+                  <h1 className="text-4xl font-semibold tracking-tight text-black dark:text-white">
+                    Tame Your Inbox
+                  </h1>
+                  <p className="text-lg text-black/60 dark:text-white/60">
+                    Never miss important emails. Turn chaos into clarity.
+                  </p>
                 </div>
               </div>
 
-              {/* Quick Benefits */}
-              <div className="space-y-3 text-sm">
-                <div className="text-black/60 dark:text-white/60">
-                  ✓ Export tasks to Todoist, Asana & more
+              {/* Feature Highlights - More visual, less text */}
+              <div className="grid gap-4">
+                <div className="p-6 rounded-xl bg-gradient-to-br from-blue-50/80 to-transparent dark:from-blue-900/20 dark:to-transparent border border-blue-100/50 dark:border-blue-500/10">
+                  <h3 className="flex items-center gap-3 text-lg font-medium text-black dark:text-white mb-2">
+                    <div className="p-2 rounded-lg bg-blue-100/50 dark:bg-blue-900/30">
+                      <MailCheck className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    Smart Priority Detection
+                  </h3>
+                  <p className="text-black/60 dark:text-white/60">
+                    AI instantly identifies what needs your attention first
+                  </p>
                 </div>
-                <div className="text-black/60 dark:text-white/60">
-                  ✓ Setup in minutes, no complex configuration
+
+                <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50/80 to-transparent dark:from-purple-900/20 dark:to-transparent border border-purple-100/50 dark:border-purple-500/10">
+                  <h3 className="flex items-center gap-3 text-lg font-medium text-black dark:text-white mb-2">
+                    <div className="p-2 rounded-lg bg-purple-100/50 dark:bg-purple-900/30">
+                      <Info className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                    </div>
+                    Automatic Task Extraction
+                  </h3>
+                  <p className="text-black/60 dark:text-white/60">
+                    Turn lengthy threads into clear, actionable steps
+                  </p>
                 </div>
-                <div className="text-black/60 dark:text-white/60">
-                  ✓ Works with your existing email workflow
+              </div>
+
+              {/* Benefits - Simplified with icons */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 text-black/60 dark:text-white/60">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Works with your existing email workflow
+                </div>
+                <div className="flex items-center gap-3 text-black/60 dark:text-white/60">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Processes everything locally for privacy
+                </div>
+                <div className="flex items-center gap-3 text-black/60 dark:text-white/60">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Syncs with Todoist, Asana & more
                 </div>
               </div>
             </div>
 
-            {/* CTA */}
-            <div>
+            {/* CTA Section - Enhanced */}
+            <div className="space-y-4">
               <a
                 href="https://app.youform.com/forms/thxq4irm"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-opacity"
+                className="group flex items-center justify-center gap-2 px-6 py-3 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:opacity-90 transition-all"
               >
-                <MailCheck className="w-4 h-4" />
-                <span className="text-sm font-medium">Get Early Access</span>
+                <MailCheck className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span className="font-medium">Get Early Access</span>
               </a>
-              <p className="mt-3 text-xs text-black/40 dark:text-white/40">
-                No credit card required. Limited beta slots available.
+              <p className="text-center text-xs text-black/40 dark:text-white/40">
+                No credit card required • Limited beta slots available
               </p>
             </div>
           </div>
-
           {/* Right Column - App Preview */}
           <div className="flex-1 p-8">
             <div className="mb-4 text-sm text-blue-500 dark:text-blue-400 flex items-center gap-2">
@@ -153,7 +152,6 @@ const HeroScreen: React.FC = () => {
 
               {/* Email List or Detail View */}
               <div className="flex-1 overflow-y-auto">
-                <div className="p-4 border-b border-black/5 dark:border-white/5"></div>
                 {selectedEmail ? (
                   // If the selected email has a thread, show the threaded detail view.
                   selectedEmail.thread ? (

@@ -76,7 +76,9 @@ export const EmailPreview: React.FC<EmailPreviewProps> = ({
             <MoreHorizontal className="w-4 h-4 text-black/20 dark:text-white/20" />
           </div>
         </div>
-        <h4 className={`text-sm mb-2 truncate ${isUnread ? "font-medium" : ""}`}>
+        <h4
+          className={`text-sm mb-2 truncate ${isUnread ? "font-medium" : ""}`}
+        >
           {subject}
         </h4>
         <p className="text-xs text-black/60 dark:text-white/60 line-clamp-1 mb-2">
@@ -108,7 +110,6 @@ export const EmailPreview: React.FC<EmailPreviewProps> = ({
     </div>
   );
 };
-
 
 /* ─── EMAIL DETAIL COMPONENT ─────────────────────────────────────────────── */
 
@@ -228,9 +229,7 @@ export const EmailDetailThreaded: React.FC<EmailDetailThreadedProps> = ({
 
   const toggleExpansion = (id: string) => {
     setExpandedMessageIds((prev) =>
-      prev.includes(id)
-        ? prev.filter((msgId) => msgId !== id)
-        : [...prev, id]
+      prev.includes(id) ? prev.filter((msgId) => msgId !== id) : [...prev, id]
     );
   };
 

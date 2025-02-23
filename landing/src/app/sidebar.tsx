@@ -26,7 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onToggle,
 }) => {
   return (
-    <div
+    <div  
       className={`${
         expanded ? 'w-64' : 'w-16'
       } border-r border-black/5 dark:border-white/5 flex flex-col transition-all duration-200 ease-in-out relative group`}
