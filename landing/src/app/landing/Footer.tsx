@@ -68,10 +68,9 @@ const Footer: React.FC = () => {
                   <div className="mb-2">
                     <strong>1. Introduction</strong>
                     <br />
-                    Welcome to Ithena. These Terms of Service ("Terms") govern your use of
-                    Ithena's email triage application. By accessing or using our services,
-                    you agree to be bound by these Terms. If you do not agree, you may not
-                    use Ithena.
+                    Welcome to Ithena. These Terms of Service ("Terms") govern your use of Ithena's email triage application. By accessing or using our services, you agree to be bound by these Terms. If you do not agree, you may not use Ithena.
+
+Ithena is operated by Van Andell Ocay as a sole proprietor, pending formal incorporation. References to "Ithena," "we," "us," or "our" refer to the current owner and future legal entity once incorporated.
                   </div>
                   <div className="mb-2">
                     <strong>2. Eligibility</strong>
