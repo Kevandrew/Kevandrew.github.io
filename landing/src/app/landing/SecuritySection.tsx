@@ -185,8 +185,6 @@ const SecuritySection: React.FC<SecuritySectionProps> = ({ securityRef, isVisibl
                 <div className="mt-8 pt-6 border-t border-black/5 dark:border-white/5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Shield className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                      <span className="text-sm font-medium">SOC 2 Compliant</span>
                     </div>
                     <div className="text-sm text-black/40 dark:text-white/40 italic">
                       "Your privacy is our priority."
